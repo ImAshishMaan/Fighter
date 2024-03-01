@@ -8,6 +8,8 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class UStaticMeshComponent;
+class UAnimSequence;
 
 UCLASS()
 class OPENWORLD_API AMainCharacter : public ACharacter
@@ -26,6 +28,12 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UCameraComponent* CameraComp;
 
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* SwordComp;
+
+	UPROPERTY(EditAnywhere)
+	UAnimSequence* AttackAnimation;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -38,5 +46,18 @@ public:
 
 	void MoveForward(float InputValue);
 	void MoveRight(float InputValue);
+	void Turn(float InputValue);
+	void LookUp(float InputValue);
+
+	int Damage;
+
+	void StartAttack();
+	
+public:
+	UFUNCTION(BlueprintCallable)
+	void LineTrace();
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bIsAttacking;
 
 };
